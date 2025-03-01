@@ -21,6 +21,13 @@ export const actions: Actions = {
                     status: 1
                 }
             })
+            await redis.set("cacheKey", JSON.stringify({
+                topic: title,
+                description: description,
+                priority: 3,
+                status: 1
+            }), "EX", 300)
+
         } catch (err) {
             console.error(err);
             return fail(500, {message: "could not create a task"});

@@ -23,8 +23,8 @@ model Task {
   id          Int @id @default(autoincrement())
   topic       String
   description String
-  priority    Int
-  status      Int
+  priority    String
+  status      String
 }
 
 model User {

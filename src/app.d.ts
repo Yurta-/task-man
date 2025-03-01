@@ -1,6 +1,7 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 
 import type { PrismaClient } from "@prisma/client";
+import type { Redis } from "ioredis"
 
 // for information about these interfaces
 declare global {
@@ -12,6 +13,7 @@ declare global {
 		// interface Platform {}
 	}
 	var prisma=PrismaClient;
+	var redis=Redis;
 }
 
 export {};
