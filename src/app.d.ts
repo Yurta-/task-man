@@ -7,7 +7,9 @@ import type { Redis } from "ioredis"
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			authedUser: UserWithoutPassword | undefined
+		}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}

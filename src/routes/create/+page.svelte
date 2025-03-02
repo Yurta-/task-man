@@ -8,7 +8,7 @@
    <form action={action} method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
      <div class="mb-4">
         <label for="title" class="block text-gray-800 text-sm font-semibold mb-2">Title</label>
-        <input type="text" required id="title" name="title" class="shadow appearance-none border rounded-md border-slate-300 w-full py-2 px-3 focus:outline-none focus:shadow-outline" placeholder="Task title"/>
+        <input type="text" required id="title" name="title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Task title"/>
     </div>
     <div class="mb-4">
         <label for="description" class="block text-gray-800 text-sm font-semibold mb-2">Description</label>

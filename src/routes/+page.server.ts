@@ -1,8 +1,11 @@
-import { fail } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 import { prisma } from "$lib/server/prisma"
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({locals}) => {
+    if (!locals.authedUser) {
+        throw redirect(302, "/login")
+    }
     return {
         tasks: await prisma.task.findMany()
     }

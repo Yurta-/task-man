@@ -14,8 +14,8 @@ datasource db {
 }
 
 model TMUser {
-  id    Int  @id @default(autoincrement())
-  email String
+  id    Int    @id @default(autoincrement())
+  email String @unique
   pass  String
 }
 

@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { Redis } from "ioredis"
-import { createPrismaRedisCache } from "prisma-redis-middleware";
 
 const prisma = global.prisma || new PrismaClient();
 const redis = global.redis || new Redis();
