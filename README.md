@@ -1,3 +1,11 @@
+A svelte task manager.
+
+Requires registration and authorization.
+One can create, edit and delete tasks.
+Tasks are cached in Redis (there are questions).
+
+The project is automatically deployed to Versel. However, no MySql database is attached, so it cannot be used actually.
+
 To run the project locally:
 
 1. Checkout the project
