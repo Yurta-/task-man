@@ -9,8 +9,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./taskManager.sqlite"
+  provider = "mysql"
+  url      = env("DATABASE_URL") 
 }
 
 model TMUser {
@@ -22,33 +22,7 @@ model TMUser {
 model Task {
   id          Int @id @default(autoincrement())
   topic       String
-  description String
+  description String?
   priority    String
   status      String
-}
-
-model User {
-  id           String    @id @unique
-
-  auth_session Session[]
-  key          Key[]
-}
-
-model Session {
-  id             String @id @unique
-  user_id        String
-  active_expires BigInt
-  idle_expires   BigInt
-  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
-}
-
-model Key {
-  id              String  @id @unique
-  hashed_password String?
-  user_id         String
-  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
 }
