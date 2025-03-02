@@ -9,14 +9,14 @@ To run the project locally:
 7. Run `npm run preview` to preview
 
 API (works without authorization):
-  GET /task/<taskId> - gets a task by its id
-  PUT /task/<taskId> - updates the specified task OR adds a new one, if the specified does not exist
-  DELETE /task/<taskId> - deletes the specified task
-  POST /create - creates a new task
+  - GET /task/<taskId> - gets a task by its id
+  - PUT /task/<taskId> - updates the specified task OR adds a new one, if the specified does not exist
+  - DELETE /task/<taskId> - deletes the specified task
+  - POST /create - creates a new task
   
 task parameters:
-  title: String - name of the task
-  description: String - task description
-  priority: String - task priority (values "Low", "Medium", "High")
-  status: String - task status (values "New", "In progress", "Done")
+  - `title`: String - name of the task
+  - `description`: String - task description
+  - `priority`: String - task priority (values "Low", "Medium", "High")
+  - `status`: String - task status (values "New", "In progress", "Done")
 
