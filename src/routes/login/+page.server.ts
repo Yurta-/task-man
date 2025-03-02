@@ -4,19 +4,9 @@ import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import { redirect } from "@sveltejs/kit";
 
-export async function load({cookies}) {
-    const authToken = cookies.get("authToken");
-    if (!authToken) return {
-        clearUser: true
-    }
-
-    return {clearUser: false}
- }
-
 export const actions: Actions = {
 
-    login: async ({cookies, request}: RequestEvent): Promise<loginFormResponse |
-    ActionFailure<loginFormResponse> | Redirect> => {
+    login: async ({cookies, request}: RequestEvent) => {
         const loginFormData = await request.formData();
         const email = loginFormData.get("email");
         const pass = loginFormData.get("password");
@@ -36,33 +26,23 @@ export const actions: Actions = {
             if (!user) {
                 loginResponse.error = true,
                 loginResponse.message = "Invalid user data"
-                const passHash = await bcrypt.hash(String(pass), 3);
-                await prisma.TMUser.create({
-                    data: {
-                        email: email,
-                        pass: passHash
-                    }
-                })
             } else {
-            const authAttempt = await bcrypt.compare(String(pass), user.pass);
-            if (!authAttempt) {
-                loginResponse.error = true,
-                loginResponse.message = "Invalid user data"
+                const authAttempt = await bcrypt.compare(String(pass), user.pass);
+                if (!authAttempt) {
+                    loginResponse.error = true,
+                    loginResponse.message = "Invalid user data"
+                }
+                if (authAttempt){
+                    const {pass,...userAttemptingLoginMinusPassword} = user;
+                    const authToken = jwt.sign({
+                        authedUser: userAttemptingLoginMinusPassword
+                    },"something", {expiresIn:"1h"});
+                    cookies.set("authToken", authToken, {path: "/", httpOnly: true, maxAge: 60*60, sameSite: "strict"});
+                    throw redirect(302,"/");
+                }
             }
-            if (authAttempt){
-                const {pass,...userAttemptingLoginMinusPassword} = user;
-                const authToken = jwt.sign({
-                    authedUser: userAttemptingLoginMinusPassword
-                },"something", {expiresIn:"10m"});
-                cookies.set("authToken", authToken, {path: "/", httpOnly: true, maxAge: 300, sameSite: "strict"});
-                throw redirect(302,"/");
-                
-            }
         }
-        }
-        finally{
-
-        }
+        finally{}
 
         return loginResponse;
     }

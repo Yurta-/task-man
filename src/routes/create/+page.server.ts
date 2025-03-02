@@ -1,6 +1,6 @@
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
-import { prisma, redis } from "$lib/server/prisma";
+import { prisma } from "$lib/server/prisma";
 
 export const load: PageServerLoad = async ({locals}) => {
     if (!locals.authedUser) {
@@ -11,7 +11,6 @@ export const load: PageServerLoad = async ({locals}) => {
 export const actions: Actions ={
     createTask: async ({ request, params }) => {
         const {title, description, priority, status} = Object.fromEntries( await request.formData()) as {title: string, description: string, priority: String, status: String}
-        console.log(title+" "+priority);
         try {
             await prisma.task.create({
                 data: {
@@ -23,7 +22,7 @@ export const actions: Actions ={
             })
         } catch (err) {
             console.error(err)
-            return fail(500, {message: "bla bla"})
+            return fail(500, {message: "Cannot create task"})
         }
 
         throw redirect(302, "/")

@@ -2,7 +2,8 @@
     let action = "?/createTask"
 </script>
 
-<h1 class="p-5 text-lg font-semibold text-left  text-gray-900 bg-white dark:text-white dark:bg-gray-800">Create a new task</h1>
+<div class="flex justify-center items-center flex-col">
+  <h1 class="p-5 text-lg font-semibold text-left  text-gray-900 bg-white dark:text-white dark:bg-gray-800">Create a new task</h1>
 
 <div class="w-full max-w-lg">
    <form action={action} method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -22,7 +23,6 @@
           <option>High</option>
         </select>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
         </div>
       </div>
       <div class="inline-block relative w-full mb-4">
@@ -33,11 +33,12 @@
           <option>Done</option>
         </select>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
         </div>
       </div>
       <div class="flow-root">
         <button class="float-right rounded-md border border-slate-300 py-2 px-3 text-center font-semibold shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800" type="submit">Create</button>
+        <a href="/" class="inline-block align-baseline py-2 px-3 font-bold text-sm text-blue-500 hover:text-blue-800">Cancel</a>
       </div> 
     </form>
+</div>
 </div>

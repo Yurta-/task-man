@@ -7,11 +7,8 @@ async function getTask(taskId: Number) {
 
     const cTask = await redis.get(cacheKey);
     if (cTask){
-        console.log("I found task " +taskId+" in the cache!")
         return JSON.parse(cTask);
     }
-
-    console.log("No cache for task "+taskId)
 
     const task = await prisma.task.findUnique({
         where: {
@@ -28,7 +25,6 @@ async function getTask(taskId: Number) {
 }
 
 export const load: PageServerLoad = async ({ params }) => {
-  console.log("loaaading taask")
   return { 
     task: await getTask(Number(params.taskId))
   }
@@ -37,7 +33,6 @@ export const load: PageServerLoad = async ({ params }) => {
 export const actions: Actions ={
     updateTask: async ({ request, params }) => {
         const {title, description, priority, status} = Object.fromEntries( await request.formData()) as {title: string, description: string, priority: String, status: String}
-        console.log(title+" "+priority);
         try {
             await prisma.task.update({
                 where: {
@@ -52,10 +47,9 @@ export const actions: Actions ={
             })
         } catch (err) {
             console.error(err)
-            return fail(500, {message: "bla bla"})
+            return fail(500, {message: "Cannot update task!"})
         }
 
         throw redirect(302, "/")
-
     }
 }
