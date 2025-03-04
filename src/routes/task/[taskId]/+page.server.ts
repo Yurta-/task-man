@@ -5,9 +5,11 @@ import { error, fail, redirect } from "@sveltejs/kit";
 async function getTask(taskId: Number) {
     const cacheKey = 'task:'+taskId
 
-    const cTask = await redis.get(cacheKey);
-    if (cTask){
-        return JSON.parse(cTask);
+    if (redis.isReady) {
+        const cTask = await redis.get(cacheKey);
+        if (cTask){
+            return JSON.parse(cTask);
+        }
     }
 
     const task = await prisma.task.findUnique({
@@ -19,7 +21,9 @@ async function getTask(taskId: Number) {
         throw error(404, 'Task not found')
     }
     else {
-        await redis.set(cacheKey, JSON.stringify(task), "EX", 300)
+        if (redis.isReady) {
+            await redis.set(cacheKey, JSON.stringify(task), "EX", 300)
+        }
     }
     return task;
 }

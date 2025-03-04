@@ -15,7 +15,7 @@ declare global {
 		// interface Platform {}
 	}
 	var prisma=PrismaClient;
-	var redis=Redis;
+	var redis=Redis(env("REDIS_URL"));
 }
 
 export {};
