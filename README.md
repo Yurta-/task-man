@@ -2,7 +2,6 @@ A svelte task manager.
 
 Requires registration and authorization.
 One can create, edit and delete tasks.
-Tasks are cached in Redis (there are questions) and stored in a MySql database.
 
 The project is automatically deployed to Versel. 
 Database is stored on xata.io
@@ -10,12 +9,11 @@ Database is stored on xata.io
 To run the project locally:
 
 1. Checkout the project
-2. Redis should be available on localhost:6379.
-3. Database is stored in xata.io
-4. In the main directory of the project run `npm install`
-5. In the main directory of the project run `npx prisma migrate deploy` to create the requred tables
-6. In the main directory of the project run `npm run build` to build the project
-7. Run `npm run preview` to preview
+2. Configure redis and database in .env.
+3. In the main directory of the project run `npm install`
+4. In the main directory of the project run `npx prisma migrate deploy` to create the requred tables
+5. In the main directory of the project run `npm run build` to build the project
+6. Run `npm run preview` to preview
 
 API (works without authorization):
   - GET /task/<taskId> - gets a task by its id
